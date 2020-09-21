@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.journal-table-cell {
+  max-width: 40px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+/* Center's the image */
+.homepage-image-container {
+  text-align: center;
+  display: block;
+}
+
+/* Makes the image scale */
+.homepage-image {
+  max-width: 100%;
+}
