@@ -10,5 +10,11 @@ export async function addNewWeight(weight) {
 
 export async function getWeightHistory() {
   const result = await http.get(apiEndpoint);
-  return result;
+  // Sort the weights by date
+  let sortedResultByDate = result.data.sort((a, b) => {
+    if (a.date < b.date) return -1;
+    if (a.date > b.date) return 1;
+    return 0;
+  });
+  return sortedResultByDate;
 }

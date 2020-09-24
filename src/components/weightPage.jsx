@@ -44,15 +44,9 @@ function WeightPage(props) {
 
     async function getWeight() {
       let result = await getWeightHistory();
-      // Sort the weights by date
-      let weights = result.data.sort((a, b) => {
-        if (a.date < b.date) return -1;
-        if (a.date > b.date) return 1;
-        return 0;
-      });
 
-      let labels = getLabels(weights);
-      let weightData = getData(weights);
+      let labels = getLabels(result);
+      let weightData = getData(result);
 
       let graph = {
         labels: labels,

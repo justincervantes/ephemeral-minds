@@ -18,6 +18,7 @@ function JournalTable(props) {
       const uid = auth.getCurrentUser()._id;
       let { data } = await getUserEntries(uid);
       data = _.orderBy(data, sortColumn.path, sortColumn.order);
+      data.map((entry) => (entry.date = entry.date.split("T")[0]));
       setData(data);
       setSortedData(data);
     }

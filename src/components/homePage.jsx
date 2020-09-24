@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import JournalTable from "./journalTable";
+import WeightBox from "./weightBox";
 
 function HomePage({ user }) {
   useEffect(() => {});
@@ -18,6 +19,7 @@ function HomePage({ user }) {
             src="http://localhost:5050/img/1.jpg"
             alt="Motivational Quote"
           ></img>
+          <WeightBox />
         </div>
       </div>
     );

@@ -12,6 +12,7 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import JournalEntryForm from "./components/journalEntryForm";
 import WeightPage from "./components/weightPage";
+import JournalPage from "./components/journalPage";
 import NotFoundPage from "./components/notFoundPage";
 
 class App extends Component {
@@ -46,7 +47,14 @@ class App extends Component {
             <Route
               path="/"
               exact
-              render={(props) => <HomePage user={this.state.user} />}
+              render={(props) => <HomePage user={this.state.user} {...props} />}
+            />
+            <Route
+              path="/journal"
+              exact
+              render={(props) => (
+                <JournalPage user={this.state.user} {...props} />
+              )}
             />
             <Route path="/weight" component={WeightPage} />
             <Route path="/not-found" component={NotFoundPage} />

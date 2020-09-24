@@ -21,7 +21,7 @@ class WeightForm extends Form {
     try {
       const { data } = this.state;
       await addNewWeight(data);
-      window.location.reload();
+      this.setState({ weight: "" });
     } catch (ex) {
       console.log(ex);
     }
@@ -31,7 +31,7 @@ class WeightForm extends Form {
     if (!auth.getCurrentUser()) return <Redirect to="/" />;
     return (
       <div>
-        <h1 className="my-3">Log Weight</h1>
+        <h5 className="my-3">Log Weight</h5>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput(
             "date",

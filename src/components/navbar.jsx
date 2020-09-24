@@ -42,7 +42,7 @@ function NavBar({ user }) {
           <div id="navb" className="navbar-collapse collapse hide">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <NavLink className="nav-link" to="/undefined">
+                <NavLink className="nav-link" to="/journal">
                   Journal
                 </NavLink>
               </li>
