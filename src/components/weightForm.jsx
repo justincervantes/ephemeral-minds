@@ -21,7 +21,7 @@ class WeightForm extends Form {
     try {
       const { data } = this.state;
       await addNewWeight(data);
-      this.setState({ weight: "" });
+      window.location.reload();
     } catch (ex) {
       console.log(ex);
     }

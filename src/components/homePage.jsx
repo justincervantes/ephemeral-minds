@@ -16,7 +16,7 @@ function HomePage({ user }) {
         <div className="col-4 homepage-image-container">
           <img
             className="my-4 homepage-image"
-            src="http://localhost:5050/img/1.jpg"
+            src="https://ephemeralminds-backend.herokuapp.com/img/1.jpg"
             alt="Motivational Quote"
           ></img>
           <WeightBox />
