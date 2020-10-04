@@ -9,6 +9,42 @@ function JournalPage(props) {
   const [words, setWords] = useState([]);
 
   useEffect(() => {
+    // TO DO: REMOVE COMMON ARTICLES LIKE A, THE FROM THE WORD FREAK
+
+    // create an empty array of objects which hav ethe format of text:x, value:y
+    // iterate through the array of entries -> go into content
+    // seperate content string by .split(), iterate each element of the array
+    // checking if the key exists in the empty object
+    // if the key does not exist, add it and initialize it to 1
+    // else increment the key value
+    // setWords(object)
+    function countWords(entries) {
+      const wordFreq = [];
+      // Iterating through all Journal data
+      for (let i = 0; i < entries.length; i++) {
+        let journalWordArray = entries[i].content
+          .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+          .split(" ");
+        console.log("journalWordArray: " + journalWordArray);
+
+        // Iterating through each word in a single journal entry
+        for (let j = 0; j < journalWordArray.length; j++) {
+          let wordFound = false;
+          // Comparing these words against all words in the word frequency array being created to count frequency.
+          for (let k = 0; k < wordFreq.length; k++) {
+            if (wordFreq[k].text === journalWordArray[j]) {
+              wordFreq[k].value++;
+              wordFound = true;
+            }
+          }
+          if (!wordFound) {
+            wordFreq.push({ text: journalWordArray[j], value: 1 });
+          }
+        }
+        wordFreq.push();
+      }
+      setWords(wordFreq);
+    }
     // TODO: Take out the useEffect in the journal table, and instead call all the data for
     // the JournalPage and feed it down through props or context
     async function getJournals() {
@@ -16,20 +52,10 @@ function JournalPage(props) {
       let { data } = await getUserEntries(uid);
       data.map((entry) => (entry.date = entry.date.split("T")[0]));
       console.log(data);
+      return countWords(data);
     }
 
-    function countWords(entries) {
-      // create an empty array of objects which hav ethe format of text:x, value:y
-      // iterate through the array of entries -> go into content
-      // seperate content string by .split(), iterate each element of the array
-      // checking if the key exists in the empty object
-      // if the key does not exist, add it and initialize it to 1
-      // else increment the key value
-      // setWords(object)
-    }
-
-    const journalEntries = getJournals();
-    countWords(journalEntries);
+    getJournals();
   }, []);
 
   return (
