@@ -5,25 +5,6 @@ import { getUserEntries } from "../services/journalService";
 import auth from "../services/authService";
 import _ from "lodash";
 
-const words = [
-  {
-    text: "told",
-    value: 64,
-  },
-  {
-    text: "mistake",
-    value: 11,
-  },
-  {
-    text: "thought",
-    value: 16,
-  },
-  {
-    text: "bad",
-    value: 17,
-  },
-];
-
 function JournalPage(props) {
   const [words, setWords] = useState([]);
 
