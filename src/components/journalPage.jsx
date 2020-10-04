@@ -4,20 +4,105 @@ import ReactWordcloud from "react-wordcloud";
 import { getUserEntries } from "../services/journalService";
 import auth from "../services/authService";
 import _ from "lodash";
+import { Bar } from "react-chartjs-2";
 
 function JournalPage(props) {
   const [words, setWords] = useState([]);
+  const [scores, setScores] = useState([]);
+  const [magnitudes, setMagnitudes] = useState([]);
+  const [dateLabels, setDateLabels] = useState([]);
+
+  const data = {
+    datasets: [
+      {
+        label: "Sentiment (-1 to 1)",
+        type: "line",
+        data: scores,
+        fill: false,
+        borderColor: "#EC932F",
+        backgroundColor: "#EC932F",
+        pointBorderColor: "#EC932F",
+        pointBackgroundColor: "#EC932F",
+        pointHoverBackgroundColor: "#EC932F",
+        pointHoverBorderColor: "#EC932F",
+        yAxisID: "y-axis-2",
+      },
+      {
+        type: "bar",
+        label: "Magnitude",
+        data: magnitudes,
+        fill: false,
+        backgroundColor: "#71B37C",
+        borderColor: "#71B37C",
+        hoverBackgroundColor: "#71B37C",
+        hoverBorderColor: "#71B37C",
+        yAxisID: "y-axis-1",
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    tooltips: {
+      mode: "label",
+    },
+    elements: {
+      line: {
+        fill: false,
+      },
+    },
+    scales: {
+      xAxes: [
+        {
+          display: true,
+          gridLines: {
+            display: false,
+          },
+
+          labels: dateLabels,
+        },
+      ],
+      yAxes: [
+        {
+          type: "linear",
+          display: true,
+          position: "left",
+          id: "y-axis-1",
+          gridLines: {
+            display: false,
+          },
+          labels: {
+            show: true,
+          },
+        },
+        {
+          type: "linear",
+          display: true,
+          position: "right",
+          id: "y-axis-2",
+          gridLines: {
+            display: false,
+          },
+          labels: {
+            show: true,
+          },
+        },
+      ],
+    },
+  };
+
+  const plugins = [
+    {
+      afterDraw: (chartInstance, easing) => {
+        const ctx = chartInstance.chart.ctx;
+        ctx.fillText("This text drawn by a plugin", 100, 100);
+      },
+    },
+  ];
 
   useEffect(() => {
-    // TO DO: REMOVE COMMON ARTICLES LIKE A, THE FROM THE WORD FREAK
-
-    // create an empty array of objects which hav ethe format of text:x, value:y
-    // iterate through the array of entries -> go into content
-    // seperate content string by .split(), iterate each element of the array
-    // checking if the key exists in the empty object
-    // if the key does not exist, add it and initialize it to 1
-    // else increment the key value
-    // setWords(object)
+    // Gets all the unique words across each journal entries content
+    // Does not include titles
     function countWords(entries) {
       const wordFreq = [];
       // Iterating through all Journal data
@@ -25,7 +110,6 @@ function JournalPage(props) {
         let journalWordArray = entries[i].content
           .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
           .split(" ");
-        console.log("journalWordArray: " + journalWordArray);
 
         // Iterating through each word in a single journal entry
         for (let j = 0; j < journalWordArray.length; j++) {
@@ -45,17 +129,36 @@ function JournalPage(props) {
       }
       setWords(wordFreq);
     }
-    // TODO: Take out the useEffect in the journal table, and instead call all the data for
-    // the JournalPage and feed it down through props or context
-    async function getJournals() {
+
+    function setGraphStates(entries) {
+      // get a sorted array by date of all entries
+      console.log(entries);
+      entries.sort(function (a, b) {
+        return new Date(b.date) - new Date(a.date);
+      });
+      console.log(entries);
+      // create 3 arrays from the sorted array
+      const scoreArr = entries.map((obj) => obj.score);
+      setScores(scoreArr);
+
+      const magnitudesArr = entries.map((obj) => obj.magnitude);
+      setMagnitudes(magnitudesArr);
+
+      const datesArr = entries.map((obj) => obj.date);
+      setDateLabels(datesArr);
+      // set the states of score magnitude and date, then pass them to the graph
+    }
+
+    // Setting words, score, magnitude, and dates for the word cloud and graph
+    async function setStates() {
       const uid = auth.getCurrentUser()._id;
       let { data } = await getUserEntries(uid);
       data.map((entry) => (entry.date = entry.date.split("T")[0]));
-      console.log(data);
-      return countWords(data);
+      countWords(data);
+      setGraphStates(data);
     }
 
-    getJournals();
+    setStates();
   }, []);
 
   return (
@@ -64,7 +167,9 @@ function JournalPage(props) {
         <div className="col-6">
           <ReactWordcloud words={words} />
         </div>
-        <div className="col-6">BOOBS</div>
+        <div className="col-6">
+          <Bar data={data} options={options} plugins={plugins} />
+        </div>
       </div>
       <div>
         <JournalTable />
