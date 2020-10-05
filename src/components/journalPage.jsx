@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import JournalTable from "./journalTable";
-import ReactWordcloud from "react-wordcloud";
+import { TagCloud } from "react-tagcloud";
 import { getUserEntries } from "../services/journalService";
 import auth from "../services/authService";
-import _ from "lodash";
 import { Bar } from "react-chartjs-2";
-
 function JournalPage(props) {
   const [words, setWords] = useState([]);
   const [scores, setScores] = useState([]);
   const [magnitudes, setMagnitudes] = useState([]);
   const [dateLabels, setDateLabels] = useState([]);
 
+  // Graph Data
   const data = {
     datasets: [
       {
@@ -41,7 +40,8 @@ function JournalPage(props) {
     ],
   };
 
-  const options = {
+  // Graph Options
+  const graphOptions = {
     responsive: true,
     tooltips: {
       mode: "label",
@@ -91,24 +91,37 @@ function JournalPage(props) {
     },
   };
 
-  const plugins = [
-    {
-      afterDraw: (chartInstance, easing) => {
-        const ctx = chartInstance.chart.ctx;
-        ctx.fillText("This text drawn by a plugin", 100, 100);
-      },
-    },
-  ];
+  // Graph Plugins
+  const plugins = [{}];
+
+  // Wordcloud Options
+  const wordCloudOptions = {
+    colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
+    enableTooltip: true,
+    deterministic: false,
+    fontFamily: "impact",
+    fontSizes: [10, 60],
+    fontStyle: "normal",
+    fontWeight: "normal",
+    padding: 1,
+    rotations: 3,
+    rotationAngles: [0, 90],
+    scale: "sqrt",
+    spiral: "archimedean",
+    transitionDuration: 1000,
+  };
 
   useEffect(() => {
     // Gets all the unique words across each journal entries content
     // Does not include titles
     function countWords(entries) {
-      const wordFreq = [];
+      let wordFreq = [];
       // Iterating through all Journal data
       for (let i = 0; i < entries.length; i++) {
         let journalWordArray = entries[i].content
-          .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+          .toLowerCase()
+          //eslint-disable-next-line
+          .replace(/[.,\/#!$?%\^&\*;:{}=\-_`~()]/g, "")
           .split(" ");
 
         // Iterating through each word in a single journal entry
@@ -116,17 +129,28 @@ function JournalPage(props) {
           let wordFound = false;
           // Comparing these words against all words in the word frequency array being created to count frequency.
           for (let k = 0; k < wordFreq.length; k++) {
-            if (wordFreq[k].text === journalWordArray[j]) {
-              wordFreq[k].value++;
+            if (wordFreq[k].value === journalWordArray[j]) {
+              wordFreq[k].count++;
               wordFound = true;
             }
           }
           if (!wordFound) {
-            wordFreq.push({ text: journalWordArray[j], value: 1 });
+            const articles = ["the", "as", "and", "it", "of", "a", "an"];
+            if (articles.includes(journalWordArray[j])) continue;
+            wordFreq.push({ value: journalWordArray[j], count: 1 });
           }
         }
-        wordFreq.push();
       }
+
+      wordFreq.sort(function (a, b) {
+        return a.count - b.count;
+      });
+
+      if (wordFreq.length > 100) {
+        wordFreq = wordFreq.splice(wordFreq.length - 100);
+      }
+
+      console.log(wordFreq.length);
       setWords(wordFreq);
     }
 
@@ -134,7 +158,7 @@ function JournalPage(props) {
       // get a sorted array by date of all entries
       console.log(entries);
       entries.sort(function (a, b) {
-        return new Date(b.date) - new Date(a.date);
+        return new Date(a.date) - new Date(b.date);
       });
       console.log(entries);
       // create 3 arrays from the sorted array
@@ -164,11 +188,20 @@ function JournalPage(props) {
   return (
     <>
       <div className="row">
-        <div className="col-6">
-          <ReactWordcloud words={words} />
+        <div className="col-6" style={{ width: "100%", height: "100%" }}>
+          <TagCloud
+            minSize={12}
+            maxSize={40}
+            tags={words}
+            className="simple-cloud"
+            disableRandomColor={true}
+            onClick={(tag) =>
+              alert(`'${tag.value}' was selected with ${tag.count} occurances!`)
+            }
+          />
         </div>
         <div className="col-6">
-          <Bar data={data} options={options} plugins={plugins} />
+          <Bar data={data} options={graphOptions} plugins={plugins} />
         </div>
       </div>
       <div>
