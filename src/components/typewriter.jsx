@@ -28,9 +28,9 @@ export default class Typewriter extends React.Component {
     return (
       <div className="wrap">
         <div className="type-wrap">
-          <h1
+          <span
             className="typed-fade-out text-wrap"
-            style={{ whiteSpace: "pre", color: "#FFF" }}
+            style={{ whiteSpace: "pre", color: "#FFF", fontSize: "25pt" }}
             ref={(el) => {
               this.el = el;
             }}

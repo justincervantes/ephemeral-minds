@@ -22,10 +22,10 @@ function HomePage({ user }) {
         <div className="my-auto text-center">
           <Typewriter
             strings={[
-              "Ephemeral Mind is your journal",
-              "Ephemeral Mind is your weight log",
-              "Ephemeral Mind is your food tracker",
-              "Ephemeral Mind is a tool to help improve <u>MIND</u>, <b>BODY</b>, and <i>SOUL</i>",
+              "Ephemeral Mind is your <u>journal</u>",
+              "Ephemeral Mind is your ^1000 <u>weight loss logger</u>",
+              "Ephemeral Mind is your ^1000 <u>food tracker</u>",
+              "Ephemeral Mind improves <u>MIND</u>, <b>BODY</b> and <i>SOUL</i>",
             ]}
           />
         </div>
