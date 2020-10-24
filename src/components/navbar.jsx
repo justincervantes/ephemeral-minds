@@ -2,9 +2,12 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 function NavBar({ user }) {
   return (
-    <nav className="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+    <nav
+      id="navBar"
+      className="navbar navbar-expand-md bg-dark navbar-dark sticky-top"
+    >
       <Link className="navbar-brand" to="/">
-        Ephemeral Minds
+        Ephemeral Mind
       </Link>
       <button
         className="navbar-toggler navbar-toggler-right"

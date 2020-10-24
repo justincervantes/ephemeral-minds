@@ -11,8 +11,8 @@ function WeightBox(props) {
     async function getLatestLoggedWeight() {
       let weights = await getWeightHistory();
       weights = weights[weights.length - 1];
-      let weight = weights.weight;
-      let date = weights.date;
+      let weight = weights ? weights.weight : 0;
+      let date = weights ? weights.date : new Date().toISOString();
       date = date.split("T")[0];
 
       setWeight(weight);
@@ -22,12 +22,14 @@ function WeightBox(props) {
   }, []);
 
   return (
-    <div className="card text-center">
+    <div className="card text-center mb-5">
       <div className="card-body">
         <h5 className="card-title" style={{ fontSize: "25pt" }}>
-          {weight} lbs
+          {weight == 0 ? "No weight history on record" : weight + " lbs"}
         </h5>
-        <p className="card-text">Last Weigh In: {date}</p>
+        <p className="card-text">
+          {weight == 0 ? "" : `Last Weigh In: ${date}`}
+        </p>
         <WeightForm />
         <Link to="/weight" className="btn btn-primary my-3">
           Weight Graphs
