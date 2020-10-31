@@ -31,7 +31,6 @@ class WeightForm extends Form {
     if (!auth.getCurrentUser()) return <Redirect to="/" />;
     return (
       <div>
-        <h5 className="my-3">Log Weight</h5>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput(
             "date",

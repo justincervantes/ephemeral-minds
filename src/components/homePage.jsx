@@ -11,7 +11,7 @@ function HomePage({ user }) {
       <div
         className="row justify-content-center"
         style={{
-          backgroundImage: "url('landingpage4.jpg')",
+          backgroundImage: "url('background.png')",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundColor: "rgba(0, 0, 0, 0.2)",
