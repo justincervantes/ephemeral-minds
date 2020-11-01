@@ -10,3 +10,15 @@ export function register(user) {
     name: user.name,
   });
 }
+
+export function updateUser(user) {
+  console.log(user);
+  console.log(apiEndpoint);
+
+  return http.patch(apiEndpoint, {
+    email: user.username,
+    password: user.password,
+    name: user.name,
+    imageUrl: user.imageUrl,
+  });
+}

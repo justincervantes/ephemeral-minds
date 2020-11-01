@@ -1,18 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import JournalTable from "./journalTable";
 import WeightBox from "./weightBox";
 import Typewriter from "./typewriter";
 function HomePage({ user }) {
-  useEffect(() => {});
-  const height = window.innerHeight - 56;
+  const [height, setHeight] = useState();
+  useEffect(() => {
+    window.addEventListener("resize", updateWindowDimensions);
+    setHeight(window.innerHeight - 56);
+  }, []);
+
+  function updateWindowDimensions() {
+    setHeight(window.innerHeight - 56);
+  }
 
   if (!user)
     return (
       <div
         className="row justify-content-center"
         style={{
-          backgroundImage: "url('background.png')",
-          backgroundSize: "cover",
+          backgroundImage: "url('/img/homepage/2020.png')",
+          backgroundSize: "100% 100%",
           backgroundRepeat: "no-repeat",
           backgroundColor: "rgba(0, 0, 0, 0.2)",
           height: `${height}px`,
@@ -41,8 +48,9 @@ function HomePage({ user }) {
         <div className="col-4 homepage-image-container">
           <img
             className="my-4 homepage-image"
-            src="https://ephemeralminds-backend.herokuapp.com/img/1.jpg"
+            src="img/dashboard/motivation3.jpg"
             alt="Motivational Quote"
+            style={{ width: "100%" }}
           ></img>
           <WeightBox />
         </div>
