@@ -12,7 +12,7 @@ function HomePage({ user }) {
   function updateWindowDimensions() {
     setHeight(window.innerHeight - 56);
   }
-
+  
   if (!user)
     return (
       <div
@@ -48,7 +48,7 @@ function HomePage({ user }) {
         <div className="col-4 homepage-image-container">
           <img
             className="my-4 homepage-image"
-            src="img/dashboard/motivation3.jpg"
+            src={"img/dashboard/" + user.imageUrl}
             alt="Motivational Quote"
             style={{ width: "100%" }}
           ></img>

@@ -14,12 +14,14 @@ import JournalEntryForm from "./components/journalEntryForm";
 import WeightPage from "./components/weightPage";
 import JournalPage from "./components/journalPage";
 import NotFoundPage from "./components/notFoundPage";
+import { getImageUrl } from "./services/userService";
 
 class App extends Component {
   state = {};
 
-  componentDidMount() {
+  async componentDidMount() {
     const user = auth.getCurrentUser();
+    user.imageUrl = await getImageUrl();
     this.setState({ user });
   }
 

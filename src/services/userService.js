@@ -12,9 +12,6 @@ export function register(user) {
 }
 
 export function updateUser(user) {
-  console.log(user);
-  console.log(apiEndpoint);
-
   return http.patch(apiEndpoint, {
     email: user.username,
     password: user.password,
@@ -22,3 +19,10 @@ export function updateUser(user) {
     imageUrl: user.imageUrl,
   });
 }
+
+export async function getImageUrl() {
+  const request = await http.get(`${apiEndpoint}/imageUrl`);
+  const response = request.data;
+  return response;
+};
+

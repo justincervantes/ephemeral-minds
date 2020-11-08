@@ -11,15 +11,15 @@ function ProfilePage(props) {
   let keys = Object.keys(user);
   keys = keys.filter((key) => key !== "iat");
   const images = {
-    img1: "/img/dashboard/health1.png",
-    img2: "/img/dashboard/health2.png",
-    img3: "/img/dashboard/health3.png",
-    img4: "/img/dashboard/motivation1.png",
-    img5: "/img/dashboard/motivation2.png",
-    img6: "/img/dashboard/motivation3.png",
-    img7: "/img/dashboard/love1.png",
-    img8: "/img/dashboard/love2.png",
-    img9: "/img/dashboard/love3.png",
+    img1: "/img/dashboard/health1.jpg",
+    img2: "/img/dashboard/health2.jpg",
+    img3: "/img/dashboard/health3.jpg",
+    img4: "/img/dashboard/motivation1.jpg",
+    img5: "/img/dashboard/motivation2.jpg",
+    img6: "/img/dashboard/motivation3.jpg",
+    img7: "/img/dashboard/love1.jpg",
+    img8: "/img/dashboard/love2.jpg",
+    img9: "/img/dashboard/love3.jpg",
   };
 
   let handleImageSelected = (e) => {
@@ -39,6 +39,7 @@ function ProfilePage(props) {
 
   let handleSave = () => {
     user.imageUrl = imageUrl;
+    console.log(user);
     updateUser(user);
     console.log("Save clicked!");
   };
