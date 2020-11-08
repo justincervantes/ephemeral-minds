@@ -5,10 +5,11 @@ import * as userService from "../services/userService";
 import auth from "../services/authService";
 import ImageSelector from "./ImageSelector";
 import { addNewWeight } from '../services/weightService';
+import http from "../services/httpService";
 
 class RegisterForm extends Form {
   state = {
-    data: { username: "", password: "", name: "", imageUrl: "", currentWeight: null},
+    data: { username: "", password: "", name: "", imageUrl: "" },
     errors: {},
   };
   componentDidMount() {
@@ -41,9 +42,12 @@ class RegisterForm extends Form {
     let slugIndex = e.currentTarget.src.split("/").length - 1;
     let imageUrl = e.currentTarget.src.split("/")[slugIndex];
     let inputBox = document.getElementById("imageUrl");
-    var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+    var nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      "value"
+    ).set;
     nativeInputValueSetter.call(inputBox, imageUrl);
-    var ev2 = new Event('change', { bubbles: true});
+    var ev2 = new Event("change", { bubbles: true });
     inputBox.dispatchEvent(ev2);
   };
 
@@ -59,10 +63,6 @@ class RegisterForm extends Form {
     try {
       const response = await userService.register(this.state.data);
       auth.loginWithJwt(response.headers["x-auth-token"]);
-      await addNewWeight({
-        date: new Date().toISOString().split("T")[0],
-        weight: this.state.currentWeight
-      });
       window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
@@ -81,7 +81,6 @@ class RegisterForm extends Form {
           {this.renderInput("username", "Username")}
           {this.renderInput("password", "Password", "password")}
           {this.renderInput("name", "Name")}
-          {this.renderInput("currentWeight", "Optional: Current Weight (lbs)")}
           {this.renderInput("imageUrl", "Dashboard Image")}
           <ImageSelector
             images={this.images}
