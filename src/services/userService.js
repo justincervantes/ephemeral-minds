@@ -8,15 +8,13 @@ export function register(user) {
     email: user.username,
     password: user.password,
     name: user.name,
+    imageUrl: user.imageUrl
   });
 }
 
-export function updateUser(user) {
+export function updateUser(imageUrl) {
   return http.patch(apiEndpoint, {
-    email: user.username,
-    password: user.password,
-    name: user.name,
-    imageUrl: user.imageUrl,
+    imageUrl: imageUrl,
   });
 }
 

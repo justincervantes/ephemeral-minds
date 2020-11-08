@@ -25,10 +25,10 @@ function WeightBox(props) {
     <div className="card text-center mb-5">
       <div className="card-body">
         <h5 className="card-title" style={{ fontSize: "25pt" }}>
-          {weight == 0 ? "No weight history on record" : weight + " lbs"}
+          {weight === 0 ? "No weight history on record" : weight + " lbs"}
         </h5>
         <p className="card-text">
-          {weight == 0 ? "" : `Last Weigh In: ${date}`}
+          {weight === 0 ? "" : `Last Weigh In: ${date}`}
         </p>
         <WeightForm />
         <Link to="/weight" className="btn btn-primary my-3">

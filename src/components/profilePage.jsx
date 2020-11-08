@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
-import auth from "../services/authService";
+import React, { useState } from "react";
 import moment from "moment";
 import ImageSelector from "./ImageSelector";
 import { updateUser } from "../services/userService";
 function ProfilePage(props) {
   const [imageUrl, setImageUrl] = useState();
+  const {user} = props;
 
-  let user = auth.getCurrentUser();
   if (!user) window.location = "/";
   let keys = Object.keys(user);
   keys = keys.filter((key) => key !== "iat");
@@ -37,11 +36,15 @@ function ProfilePage(props) {
     setImageUrl(e.currentTarget.src.split("/")[slugIndex]);
   };
 
-  let handleSave = () => {
-    user.imageUrl = imageUrl;
-    console.log(user);
-    updateUser(user);
-    console.log("Save clicked!");
+  // TODO: Add validation or error message if the update method fails
+  // TODO: Add environment variables for testing
+  let handleSave = async () => {
+    await updateUser(imageUrl);
+    if(window.location.hostname === 'localhost') {
+      window.location.href = "http://localhost:3000/";
+    } else {
+      window.location.href = "https://ephemeralmind.ca";
+    }
   };
 
   return (
@@ -57,6 +60,7 @@ function ProfilePage(props) {
       </p>
 
       <ImageSelector
+        currentTarget={user.imageUrl}
         images={images}
         handleClick={handleImageSelected}
         onSave={handleSave}
