@@ -1,10 +1,18 @@
 import React from "react";
 
 function ImageSelector({ images, handleClick, onSave, currentTarget }) {
-  console.log(currentTarget);
-  console.log(images.img1.split('/')[images.img1.split('/').length - 1]);
-
   
+  const saveButton = (      
+    <div className="row p-2">
+      <div className="col-sm-4 col-md-4 col-lg-4">      
+        <button onClick={onSave} type="button" className="btn btn-primary">
+          Save
+        </button>
+      </div>
+    </div>
+  )
+  
+
 
   return (
     <div className="mb-3" style={{ width: "50%" }}>
@@ -88,13 +96,7 @@ function ImageSelector({ images, handleClick, onSave, currentTarget }) {
           />
         </div>
       </div>
-      <div className="row p-2">
-        <div className="col-sm-4 col-md-4 col-lg-4">
-          <button onClick={onSave} type="button" className="btn btn-primary">
-            Save
-          </button>
-        </div>
-      </div>
+      {onSave ? saveButton : ""}
     </div>
   );
 }

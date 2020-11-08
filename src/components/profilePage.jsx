@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import moment from "moment";
 import ImageSelector from "./ImageSelector";
 import { updateUser } from "../services/userService";
+
 function ProfilePage(props) {
   const [imageUrl, setImageUrl] = useState();
   const {user} = props;
+  console.log(user);
 
-  if (!user) window.location = "/";
-  let keys = Object.keys(user);
-  keys = keys.filter((key) => key !== "iat");
-  const images = {
+  // TODO: Refactor this into an exported object
+  let images = {
     img1: "/img/dashboard/health1.jpg",
     img2: "/img/dashboard/health2.jpg",
     img3: "/img/dashboard/health3.jpg",
@@ -20,6 +20,11 @@ function ProfilePage(props) {
     img8: "/img/dashboard/love2.jpg",
     img9: "/img/dashboard/love3.jpg",
   };
+
+  if (!user) window.location = "/";
+  let keys = Object.keys(user);
+  keys = keys.filter((key) => key !== "iat");
+
 
   let handleImageSelected = (e) => {
     let images = document.getElementsByClassName("img-thumbnail");
