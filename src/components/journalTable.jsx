@@ -4,6 +4,8 @@ import Table from "./common/table";
 import auth from "../services/authService";
 import _ from "lodash";
 import { getUserEntries } from "../services/journalService";
+import { deleteEntry } from "./../services/journalService";
+import { toast } from "react-toastify";
 
 function JournalTable(props) {
   const [sortColumn, setSortColumn] = useState({
@@ -26,6 +28,23 @@ function JournalTable(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  async function deletePost(journalEntry) {
+    let copySortedData = [...sortedData];
+    let copySortedDataOriginal = [...sortedData];
+    let indexToPop = sortedData
+      .map((item) => item._id)
+      .indexOf(journalEntry._id);
+    copySortedData.splice(indexToPop, 1);
+    setSortedData(copySortedData);
+    let response = await deleteEntry(journalEntry);
+    if (response.data.deletedCount !== 1) {
+      toast.error(
+        "We were unable to delete the journal entry at this time... an unexpected error occurrred."
+      );
+      setSortedData(copySortedDataOriginal);
+    }
+  }
+
   const columns = [
     {
       path: "title",
@@ -36,9 +55,9 @@ function JournalTable(props) {
     { path: "date", label: "Date" },
     {
       key: "delete",
-      content: (movie) => (
+      content: (journalEntry) => (
         <button
-          onClick={() => this.props.onDelete(movie)}
+          onClick={() => deletePost(journalEntry)}
           className="btn btn-danger btn-sm"
         >
           Delete

@@ -13,7 +13,7 @@ class TableBody extends Component {
   };
 
   render() {
-    const { data, columns } = this.props;
+    const { data, columns, onDelete } = this.props;
 
     return (
       <tbody>

@@ -12,7 +12,7 @@ function HomePage({ user }) {
   function updateWindowDimensions() {
     setHeight(window.innerHeight - 56);
   }
-  
+
   if (!user)
     return (
       <div

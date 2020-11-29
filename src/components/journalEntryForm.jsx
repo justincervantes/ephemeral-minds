@@ -3,7 +3,10 @@ import Form from "./common/form";
 import Joi from "joi-browser";
 import auth from "../services/authService";
 import { toast } from "react-toastify";
+import { viewEntry } from "./../services/journalService";
+import { modifyEntry } from "../services/journalService";
 import { saveEntry } from "../services/journalService";
+
 class JournalEntryForm extends Form {
   state = {
     data: { title: "", content: "" },
@@ -15,16 +18,30 @@ class JournalEntryForm extends Form {
     content: Joi.string().required().label("Content"),
   };
 
+  async componentDidMount() {
+    const { data: entry } = await viewEntry(this.props.match.params.postid);
+    this.setState({ data: { title: entry.title, content: entry.content } });
+    
+  }
+
   doSubmit = async () => {
     try {
       this.state.data["uid"] = auth.getCurrentUser()._id;
       const { data } = this.state;
+      data._id = window.location.pathname.split('/')[2];
       console.log(data);
-      const result = await saveEntry(data);
-      console.log(result);
+      let result;
+      if( data._id) {
+        console.log("Modify");
+        result = await modifyEntry(data);
+      } else {
+        console.log("Create")
+        result = await saveEntry(data);
+      }
+
       this.props.history.push("/");
       // const { state } = this.props.location;
-      // window.location = state ? state.from.pathname : "/";
+    
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };

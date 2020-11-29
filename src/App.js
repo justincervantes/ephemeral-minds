@@ -58,6 +58,12 @@ class App extends Component {
                 <JournalPage user={this.state.user} {...props} />
               )}
             />
+            <Route
+              path="/posts/:postid"
+              render={(props) => (
+                <JournalEntryForm user={this.state.user} {...props} />
+              )}
+            />
             <Route path="/weight" component={WeightPage} />
             <Route path="/not-found" component={NotFoundPage} />
             <Redirect to="/not-found" />

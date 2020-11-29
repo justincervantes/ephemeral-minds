@@ -20,7 +20,6 @@ export function updateUser(imageUrl) {
 export async function getImageUrl() {
   const request = await http.get(`${apiEndpoint}/imageUrl`);
   const response = request.data;
-  console.log(response);
   return response;
 };
 
