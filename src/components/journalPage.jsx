@@ -7,7 +7,6 @@ import { Bar } from "react-chartjs-2";
 function JournalPage(props) {
   const [words, setWords] = useState([]);
   const [scores, setScores] = useState([]);
-  const [magnitudes, setMagnitudes] = useState([]);
   const [dateLabels, setDateLabels] = useState([]);
 
   // Graph Data
@@ -24,20 +23,9 @@ function JournalPage(props) {
         pointBackgroundColor: "#EC932F",
         pointHoverBackgroundColor: "#EC932F",
         pointHoverBorderColor: "#EC932F",
-        yAxisID: "y-axis-2",
-      },
-      {
-        type: "bar",
-        label: "Magnitude",
-        data: magnitudes,
-        fill: false,
-        backgroundColor: "#71B37C",
-        borderColor: "#71B37C",
-        hoverBackgroundColor: "#71B37C",
-        hoverBorderColor: "#71B37C",
-        yAxisID: "y-axis-1",
-      },
-    ],
+        yAxisID: "y-axis-1"
+      }
+    ]
   };
 
   // Graph Options
@@ -56,7 +44,7 @@ function JournalPage(props) {
         {
           display: true,
           gridLines: {
-            display: false,
+            display: true,
           },
 
           labels: dateLabels,
@@ -71,17 +59,9 @@ function JournalPage(props) {
           gridLines: {
             display: false,
           },
-          labels: {
-            show: true,
-          },
-        },
-        {
-          type: "linear",
-          display: true,
-          position: "right",
-          id: "y-axis-2",
-          gridLines: {
-            display: false,
+          ticks: {
+            suggestedMin: -1.0,
+            suggestedMax: 1.0
           },
           labels: {
             show: true,
@@ -156,17 +136,15 @@ function JournalPage(props) {
 
     function setGraphStates(entries) {
       // get a sorted array by date of all entries
-      console.log(entries);
+      console.log("Graph Entries", entries);
       entries.sort(function (a, b) {
         return new Date(a.date) - new Date(b.date);
       });
-      console.log(entries);
+      console.log("Graph Entries Sorted", entries);
       // create 3 arrays from the sorted array
+
       const scoreArr = entries.map((obj) => obj.score);
       setScores(scoreArr);
-
-      const magnitudesArr = entries.map((obj) => obj.magnitude);
-      setMagnitudes(magnitudesArr);
 
       const datesArr = entries.map((obj) => obj.date);
       setDateLabels(datesArr);

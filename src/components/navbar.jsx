@@ -54,16 +54,6 @@ function NavBar({ user }) {
                   Weight Loss
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/undefined">
-                  Food Consumption
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/undefined">
-                  Spending
-                </NavLink>
-              </li>
             </ul>
             <ul className="nav navbar-nav ml-auto">
               <li className="nav-item">
