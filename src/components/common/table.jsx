@@ -6,17 +6,11 @@ function Table({ columns, sortColumn, onSort, data, onDelete }) {
   return (
     <table className="table">
       <TableHeader
-    
-           columns={columns}
-
-               sortColumn={sortColumn}
-  
-             onSort={onSort}
-    
-
-      
+        columns={columns}
+        sortColumn={sortColumn}
+        onSort={onSort}
       />
-      <TableBody columns={columns} data={data}            onDelete={onDelete} />
+      <TableBody columns={columns} data={data} onDelete={onDelete} />
     </table>
   );
 }

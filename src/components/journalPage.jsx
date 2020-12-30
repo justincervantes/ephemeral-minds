@@ -2,18 +2,23 @@ import React, { useEffect, useState } from "react";
 import JournalTable from "./journalTable";
 import { TagCloud } from "react-tagcloud";
 import { getUserEntries } from "../services/journalService";
+import { getWeightHistory } from "../services/weightService"
 import auth from "../services/authService";
 import { Bar } from "react-chartjs-2";
+import JournalAnalytics from "./journal/journalAnalytics";
 function JournalPage(props) {
   const [words, setWords] = useState([]);
   const [scores, setScores] = useState([]);
   const [dateLabels, setDateLabels] = useState([]);
-
+  const [entries, setEntries] = useState([]);
+  const [weights, setWeights] = useState([]);
+  
+  const MAX_WORDS = 100
   // Graph Data
   const data = {
     datasets: [
       {
-        label: "Sentiment (-1 to 1)",
+        label: "Positivity Scale (-1 to 1)",
         type: "line",
         data: scores,
         fill: false,
@@ -23,9 +28,9 @@ function JournalPage(props) {
         pointBackgroundColor: "#EC932F",
         pointHoverBackgroundColor: "#EC932F",
         pointHoverBorderColor: "#EC932F",
-        yAxisID: "y-axis-1"
-      }
-    ]
+        yAxisID: "y-axis-1",
+      },
+    ],
   };
 
   // Graph Options
@@ -115,7 +120,33 @@ function JournalPage(props) {
             }
           }
           if (!wordFound) {
-            const articles = ["the", "as", "and", "it", "of", "a", "an"];
+            const articles = [
+              
+              "the",
+       
+                    "as",
+    
+                       "and",
+ 
+                          "it",
+           
+                "of",
+        
+                   "a",
+     
+                      "an",
+
+                           "i",
+             
+              "I",
+         
+                  "an",
+       
+                    "my",
+    
+                       "to",
+            "at", "was"
+            ];
             if (articles.includes(journalWordArray[j])) continue;
             wordFreq.push({ value: journalWordArray[j], count: 1 });
           }
@@ -126,21 +157,20 @@ function JournalPage(props) {
         return a.count - b.count;
       });
 
-      if (wordFreq.length > 100) {
+      if (wordFreq.length > MAX_WORDS) {
         wordFreq = wordFreq.splice(wordFreq.length - 100);
       }
 
-      console.log(wordFreq.length);
       setWords(wordFreq);
     }
 
     function setGraphStates(entries) {
       // get a sorted array by date of all entries
-      console.log("Graph Entries", entries);
+      // console.log("Graph Entries", entries);
       entries.sort(function (a, b) {
         return new Date(a.date) - new Date(b.date);
       });
-      console.log("Graph Entries Sorted", entries);
+      // console.log("Graph Entries Sorted", entries);
       // create 3 arrays from the sorted array
 
       const scoreArr = entries.map((obj) => obj.score);
@@ -155,6 +185,9 @@ function JournalPage(props) {
     async function setStates() {
       const uid = auth.getCurrentUser()._id;
       let { data } = await getUserEntries(uid);
+      setEntries(data);
+      let weights = await getWeightHistory();
+      setWeights(weights);
       data.map((entry) => (entry.date = entry.date.split("T")[0]));
       countWords(data);
       setGraphStates(data);
@@ -167,16 +200,8 @@ function JournalPage(props) {
     <>
       <div className="row">
         <div className="col-6" style={{ width: "100%", height: "100%" }}>
-          <TagCloud
-            minSize={12}
-            maxSize={40}
-            tags={words}
-            className="simple-cloud"
-            disableRandomColor={true}
-            onClick={(tag) =>
-              alert(`'${tag.value}' was selected with ${tag.count} occurances!`)
-            }
-          />
+          <JournalAnalytics words={words} mostUsedWord={words[MAX_WORDS - 1]} scores={scores} entries={entries} weights={weights}/>
+          {/*  */}
         </div>
         <div className="col-6">
           <Bar data={data} options={graphOptions} plugins={plugins} />

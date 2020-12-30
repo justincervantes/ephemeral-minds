@@ -20,7 +20,10 @@ function JournalTable(props) {
       const uid = auth.getCurrentUser()._id;
       let { data } = await getUserEntries(uid);
       data = _.orderBy(data, sortColumn.path, sortColumn.order);
-      data.map((entry) => (entry.date = entry.date.split("T")[0]));
+      data.map((entry) => {
+        entry.date = entry.date.split("T")[0];
+        entry.updatedDate = entry.updatedDate.split("T")[0];
+      });
       setData(data);
       setSortedData(data);
     }
@@ -52,7 +55,8 @@ function JournalTable(props) {
       content: (post) => <Link to={`/posts/${post._id}`}>{post.title}</Link>,
     },
     { path: "content", label: "Content" },
-    { path: "date", label: "Date" },
+    { path: "date", label: "Created On Date" },
+    { path: "updatedDate", label: "Updated On Date" },
     {
       key: "delete",
       content: (journalEntry) => (
