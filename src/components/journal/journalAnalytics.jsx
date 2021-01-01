@@ -104,10 +104,10 @@ function JournalAnalytics(props) {
                         </h5>
                         <p className="card-text">
                             Your lightest weight was recorded on{" "}
-                            {heaviestWeightRecord?.date.split("T")[0]}, where
+                            {lightestWeightRecord?.date.split("T")[0]}, where
                             you weighed {lightestWeightRecord?.weight} lbs. The
                             closest entry was created on{" "}
-                            {lightestWeightRecord?.date.split("T")[0]}.
+                            {closestEntryToLightest?.date.split("T")[0]}.
                         </p>
                     </div>
                 </div>
