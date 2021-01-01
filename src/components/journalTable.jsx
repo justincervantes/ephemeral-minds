@@ -22,7 +22,7 @@ function JournalTable(props) {
       data = _.orderBy(data, sortColumn.path, sortColumn.order);
       data.map((entry) => {
         entry.date = entry.date.split("T")[0];
-        entry.updatedDate = entry.updatedDate.split("T")[0];
+        entry.updatedDate = entry?.updatedDate.split("T")[0];
       });
       setData(data);
       setSortedData(data);
