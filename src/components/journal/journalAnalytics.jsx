@@ -42,7 +42,7 @@ function JournalAnalytics(props) {
             : curr;
     }, 0);
 
-    // console.log("Props", props);
+    console.log("Props", props);
     // console.log("Weights", weightsSortedByWeight);
     // console.log("Lightest Weight", lightestWeightRecord);
     // console.log("Heaviest Weight", heaviestWeightRecord);
@@ -104,10 +104,11 @@ function JournalAnalytics(props) {
                         </h5>
                         <p className="card-text">
                             Your lightest weight was recorded on{" "}
-                            {lightestWeightRecord?.date.split("T")[0]}, where
-                            you weighed {lightestWeightRecord?.weight} lbs. The
-                            closest entry was created on{" "}
-                            {closestEntryToLightest?.date.split("T")[0]}.
+                            {console.log(lightestWeightRecord)}
+                            {lightestWeightRecord?.date}
+                            , where you weighed {lightestWeightRecord?.weight}{" "}
+                            lbs. The closest entry was created on{" "}
+                            {closestEntryToLightest?.date}.
                         </p>
                     </div>
                 </div>
