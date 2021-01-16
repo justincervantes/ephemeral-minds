@@ -187,6 +187,10 @@ function JournalPage(props) {
       let { data } = await getUserEntries(uid);
       setEntries(data);
       let weights = await getWeightHistory();
+      weights = weights.map((entry) => {
+        entry.date = entry.date.split("T")[0];
+        return entry;
+      });
       setWeights(weights);
       data.map((entry) => (entry.date = entry.date.split("T")[0]));
       countWords(data);
