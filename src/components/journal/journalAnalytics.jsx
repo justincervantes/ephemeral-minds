@@ -1,5 +1,4 @@
 import React from "react";
-import moment from "moment";
 
 function JournalAnalytics(props) {
     let weightsSortedByWeight = props.weights.sort((a, b) => {
@@ -9,7 +8,6 @@ function JournalAnalytics(props) {
     });
 
     const allEntries = [...props.entries];
-    //console.log(allEntries);
     const lowestScore = allEntries.reduce((prev, curr) => {
         return prev.score < curr.score ? prev : curr;
     }, 0);
@@ -42,7 +40,6 @@ function JournalAnalytics(props) {
             : curr;
     }, 0);
 
-    console.log("Props", props);
     // console.log("Weights", weightsSortedByWeight);
     // console.log("Lightest Weight", lightestWeightRecord);
     // console.log("Heaviest Weight", heaviestWeightRecord);
@@ -56,11 +53,10 @@ function JournalAnalytics(props) {
 
     return (
         <div>
-            <h1 className="display-4 ml-3 lead">Journal Analytics</h1>
-            <div className="pt-2 card-columns" style={{ height: "100%" }}>
+
+            <div className={props.block ? "pt-2" : "pt-2 card-columns"} style={{ height: "100%" }}>
                 <div
-                    className="card text-white bg-primary m-2"
-                    style={{ maxWidth: "20rem" }}
+                    className={props.block ? "card text-white bg-primary m-2 card-block" : "card text-white bg-primary m-2"}
                 >
                     <div className="card-header">Most Frequently Used Word</div>
                     <div className="card-body">
@@ -70,14 +66,14 @@ function JournalAnalytics(props) {
                         <p className="card-text">
                             You've used the word {props.mostUsedWord?.value} a
                             total of {props.mostUsedWord?.count} times across
-                            all your entries. View a word cloud here.
+                            all your entries.
                         </p>
                     </div>
                 </div>
 
                 <div
                     className="card text-white bg-secondary m-2"
-                    style={{ maxWidth: "20rem" }}
+     
                 >
                     <div className="card-header">Least Happy Entry</div>
                     <div className="card-body">
@@ -93,7 +89,6 @@ function JournalAnalytics(props) {
 
                 <div
                     className="card text-white bg-success m-2"
-                    style={{ maxWidth: "20rem" }}
                 >
                     <div className="card-header">
                         Closest Entry at Lightest Weight
@@ -104,7 +99,6 @@ function JournalAnalytics(props) {
                         </h5>
                         <p className="card-text">
                             Your lightest weight was recorded on{" "}
-                            {console.log(lightestWeightRecord)}
                             {lightestWeightRecord?.date}
                             , where you weighed {lightestWeightRecord?.weight}{" "}
                             lbs. The closest entry was created on{" "}
@@ -115,7 +109,6 @@ function JournalAnalytics(props) {
 
                 <div
                     className="card text-white bg-danger m-2"
-                    style={{ maxWidth: "20rem" }}
                 >
                     <div className="card-header">Most Emotional Entry</div>
                     <div className="card-body">
@@ -129,7 +122,6 @@ function JournalAnalytics(props) {
 
                 <div
                     className="card text-white bg-warning m-2"
-                    style={{ maxWidth: "20rem" }}
                 >
                     <div className="card-header">Happiest Entry</div>
                     <div className="card-body">
@@ -145,7 +137,6 @@ function JournalAnalytics(props) {
 
                 <div
                     className="card text-white bg-info m-2"
-                    style={{ maxWidth: "20rem" }}
                 >
                     <div className="card-header">
                         Closest Entry to Heaviest Weight
@@ -166,18 +157,20 @@ function JournalAnalytics(props) {
             </div>
         </div>
     );
-    {
-        /* <TagCloud
-            minSize={12}
-            maxSize={40}
-            tags={words}
-            className="simple-cloud"
-            disableRandomColor={true}
-            onClick={(tag) =>
-              alert(`'${tag.value}' was selected with ${tag.count} occurances!`)
-            }
-          /> */
-    }
+   
 }
+
+
+    /* <TagCloud
+        minSize={12}
+        maxSize={40}
+        tags={words}
+        className="simple-cloud"
+        disableRandomColor={true}
+        onClick={(tag) =>
+          alert(`'${tag.value}' was selected with ${tag.count} occurances!`)
+        }
+      /> */
+
 
 export default JournalAnalytics;

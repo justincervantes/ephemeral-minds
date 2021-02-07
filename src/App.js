@@ -21,7 +21,9 @@ class App extends Component {
 
   async componentDidMount() {
     const user = auth.getCurrentUser();
-    user.imageUrl = await getImageUrl();
+    if(user) {
+      user.imageUrl = await getImageUrl();
+    }
     this.setState({ user });
   }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import JournalTable from "./journalTable";
-import { TagCloud } from "react-tagcloud";
+// import { TagCloud } from "react-tagcloud";
 import { getUserEntries } from "../services/journalService";
 import { getWeightHistory } from "../services/weightService"
 import auth from "../services/authService";
@@ -80,21 +80,21 @@ function JournalPage(props) {
   const plugins = [{}];
 
   // Wordcloud Options
-  const wordCloudOptions = {
-    colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
-    enableTooltip: true,
-    deterministic: false,
-    fontFamily: "impact",
-    fontSizes: [10, 60],
-    fontStyle: "normal",
-    fontWeight: "normal",
-    padding: 1,
-    rotations: 3,
-    rotationAngles: [0, 90],
-    scale: "sqrt",
-    spiral: "archimedean",
-    transitionDuration: 1000,
-  };
+  // const wordCloudOptions = {
+  //   colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
+  //   enableTooltip: true,
+  //   deterministic: false,
+  //   fontFamily: "impact",
+  //   fontSizes: [10, 60],
+  //   fontStyle: "normal",
+  //   fontWeight: "normal",
+  //   padding: 1,
+  //   rotations: 3,
+  //   rotationAngles: [0, 90],
+  //   scale: "sqrt",
+  //   spiral: "archimedean",
+  //   transitionDuration: 1000,
+  // };
 
   useEffect(() => {
     // Gets all the unique words across each journal entries content
@@ -145,7 +145,7 @@ function JournalPage(props) {
                     "my",
     
                        "to",
-            "at", "was"
+            "at", "was","for"
             ];
             if (articles.includes(journalWordArray[j])) continue;
             wordFreq.push({ value: journalWordArray[j], count: 1 });
@@ -198,19 +198,36 @@ function JournalPage(props) {
     }
 
     setStates();
+
+
   }, []);
+  
 
   return (
     <>
       <div className="row">
-        <div className="col-6" style={{ width: "100%", height: "100%" }}>
+      
+        {/* ONLY DISPLAY ON LARGE DESKTOP SCREENS */}
+        <div className="col-6 d-none d-lg-block" style={{ width: "100%", height: "100%" }}>
           <JournalAnalytics words={words} mostUsedWord={words[MAX_WORDS - 1]} scores={scores} entries={entries} weights={weights}/>
-          {/*  */}
         </div>
-        <div className="col-6">
+        <div className="col-6 d-none d-lg-block">
           <Bar data={data} options={graphOptions} plugins={plugins} />
         </div>
+        {/* END ONLY DISPLAY ON LARGE DESKTOP SCREENS */}
+      
       </div>
+
+      {entries.length === 0 ? (<h1>Write your first journal entry to get started...!</h1>) :      (<> <div className="col-12 d-lg-none">
+          <Bar data={data} options={graphOptions} plugins={plugins} />
+      </div>
+
+      <div className="col-12 d-lg-none" style={{ width: "100%", height: "100%" }}>
+          <JournalAnalytics words={words} mostUsedWord={words[MAX_WORDS - 1]} scores={scores} entries={entries} weights={weights} block/>
+      </div></>)
+}
+
+
       <div>
         <JournalTable />
       </div>

@@ -7,33 +7,43 @@ import { getUserEntries } from "../services/journalService";
 import { deleteEntry } from "./../services/journalService";
 import { toast } from "react-toastify";
 
+
+
 function JournalTable(props) {
   const [sortColumn, setSortColumn] = useState({
     path: "date",
     order: "desc",
   });
+
   const [data, setData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
+  const [columns, setColumns] = useState([]);
+
 
   useEffect(() => {
+
+    window.innerWidth < 1000 ? setColumns(columnsMobile) : setColumns(columnsDesktop)
     async function getJournals() {
       const uid = auth.getCurrentUser()._id;
       let { data } = await getUserEntries(uid);
       data = _.orderBy(data, sortColumn.path, sortColumn.order);
-      data.map((entry) => {
+      data.forEach((entry) => {
         entry.date = entry.date.split("T")[0];
         entry.updatedDate = entry?.updatedDate.split("T")[0];
       });
       setData(data);
       setSortedData(data);
+       
     }
     getJournals();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function deletePost(journalEntry) {
     let copySortedData = [...sortedData];
     let copySortedDataOriginal = [...sortedData];
+    copySortedData = copySortedData.filter( (entry) => entry._id !== journalEntry)
     let indexToPop = sortedData
       .map((item) => item._id)
       .indexOf(journalEntry._id);
@@ -46,9 +56,12 @@ function JournalTable(props) {
       );
       setSortedData(copySortedDataOriginal);
     }
+    window.location.reload()
   }
 
-  const columns = [
+
+
+  let columnsDesktop = [
     {
       path: "title",
       label: "Title",
@@ -68,7 +81,27 @@ function JournalTable(props) {
         </button>
       ),
     },
-  ];
+  ]; 
+
+  let columnsMobile = [
+    {
+      path: "title",
+      label: "Title",
+      content: (post) => <Link to={`/posts/${post._id}`}>{post.title}</Link>,
+    },
+    { path: "date", label: "Date" },
+    {
+      key: "delete",
+      content: (journalEntry) => (
+        <button
+          onClick={() => deletePost(journalEntry)}
+          className="btn btn-danger btn-sm"
+        >
+          Delete
+        </button>
+      ),
+    },
+  ]; 
 
   let handleSort = (sortColumn) => {
     console.log(sortColumn);

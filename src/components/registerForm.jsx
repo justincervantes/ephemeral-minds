@@ -4,8 +4,6 @@ import Form from "./common/form";
 import * as userService from "../services/userService";
 import auth from "../services/authService";
 import ImageSelector from "./ImageSelector";
-import { addNewWeight } from '../services/weightService';
-import http from "../services/httpService";
 
 class RegisterForm extends Form {
   state = {

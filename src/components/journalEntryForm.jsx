@@ -19,9 +19,10 @@ class JournalEntryForm extends Form {
   };
 
   async componentDidMount() {
-    const { data: entry } = await viewEntry(this.props.match.params.postid);
-    this.setState({ data: { title: entry.title, content: entry.content } });
-    
+    if(window.location.href.includes("new-entry")) {
+      const { data: entry } = await viewEntry(this.props.match.params.postid);
+      this.setState({ data: { title: entry.title, content: entry.content } });
+    }
   }
 
   doSubmit = async () => {
@@ -29,14 +30,10 @@ class JournalEntryForm extends Form {
       this.state.data["uid"] = auth.getCurrentUser()._id;
       const { data } = this.state;
       data._id = window.location.pathname.split('/')[2];
-      console.log(data);
-      let result;
       if( data._id) {
-        console.log("Modify");
-        result = await modifyEntry(data);
+        await modifyEntry(data);
       } else {
-        console.log("Create")
-        result = await saveEntry(data);
+        await saveEntry(data);
       }
 
       this.props.history.push("/");

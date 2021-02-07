@@ -41,11 +41,11 @@ function HomePage({ user }) {
   else
     return (
       <div className="row">
-        <div className="col-8">
+        <div className="col-8  d-none d-lg-block">
           <h1 className="my-2">Welcome to your dashboard, {user.name}!</h1>
           <JournalTable />
         </div>
-        <div className="col-4 homepage-image-container">
+        <div className="col homepage-image-container">
           <img
             className="my-4 homepage-image"
             src={"img/dashboard/" + user.imageUrl}

@@ -30,6 +30,7 @@ class TableHeader extends Component {
         <tr>
           {this.props.columns.map((column) => (
             <th
+              style={{width: "20%"}}
               className="clickable"
               key={column.path || column.key}
               onClick={() => this.raiseSort(column.path)}
