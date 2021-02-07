@@ -145,7 +145,7 @@ function JournalPage(props) {
                     "my",
     
                        "to",
-            "at", "was","for"
+            "at", "was","for", "have", "on", "that", "so", "in", "is", "but"
             ];
             if (articles.includes(journalWordArray[j])) continue;
             wordFreq.push({ value: journalWordArray[j], count: 1 });

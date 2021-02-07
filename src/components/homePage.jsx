@@ -18,7 +18,7 @@ function HomePage({ user }) {
       <div
         className="row justify-content-center"
         style={{
-          backgroundImage: "url('/img/homepage/2020.png')",
+          backgroundImage: "url('/img/homepage/busy.jpg')",
           backgroundSize: "100% 100%",
           backgroundRepeat: "no-repeat",
           backgroundColor: "rgba(0, 0, 0, 0.2)",
@@ -29,10 +29,10 @@ function HomePage({ user }) {
         <div className="my-auto text-center">
           <Typewriter
             strings={[
-              "Ephemeral Mind is your <u>journal</u>",
-              "Ephemeral Mind is your ^1000 <u>weight loss logger</u>",
-              "Ephemeral Mind is your ^1000 <u>food tracker</u>",
-              "Ephemeral Mind improves <u>MIND</u>, <b>BODY</b> and <i>SOUL</i>",
+              "Sometimes life is <u>hectic</u> ^1000",
+              "You feel like you're just <u>along for the ride</u> ^1000",
+              "Its time to <u>slow down</u>, <br/>so you can <u>speed up</u> ^2000",
+              "`<b>Write Daily</b><br/><i>Start Today</i><br/><u>Make Change</u>`",
             ]}
           />
         </div>
