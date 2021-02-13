@@ -19,7 +19,7 @@ class JournalEntryForm extends Form {
   };
 
   async componentDidMount() {
-    if(window.location.href.includes("new-entry")) {
+    if(!window.location.href.includes("new-entry")) {
       const { data: entry } = await viewEntry(this.props.match.params.postid);
       this.setState({ data: { title: entry.title, content: entry.content } });
     }
