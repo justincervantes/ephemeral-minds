@@ -220,10 +220,11 @@ function JournalPage(props) {
 
       {entries.length === 0 ? (<h1>Write your first journal entry to get started...!</h1>) :      (<> <div className="col-12 d-lg-none">
           <Bar data={data} options={graphOptions} plugins={plugins} />
-      </div>
+      </div>  
 
       <div className="col-12 d-lg-none" style={{ width: "100%", height: "100%" }}>
-          <JournalAnalytics words={words} mostUsedWord={words[MAX_WORDS - 1]} scores={scores} entries={entries} weights={weights} block/>
+
+          <JournalAnalytics words={words} mostUsedWord={words[words.length - 1]} scores={scores} entries={entries} weights={weights} block/>
       </div></>)
 }
 
