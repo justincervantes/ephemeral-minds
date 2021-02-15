@@ -13,6 +13,11 @@
   }
 }
 
+a, a:hover{
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit !important; /* no underline */
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

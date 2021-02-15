@@ -44,7 +44,8 @@ function NavBar({ user }) {
         user && (
           <div id="navb" className="navbar-collapse collapse hide">
             <ul className="navbar-nav">
-              <li className="nav-item">
+
+             <li className="nav-item">
                 <NavLink className="nav-link" to="/journal">
                   Journal
                 </NavLink>
@@ -56,6 +57,20 @@ function NavBar({ user }) {
               </li>
             </ul>
             <ul className="nav navbar-nav ml-auto">
+
+              <li className ="nav-item">
+                <NavLink className="nav-link" to="/request-feature">
+                  <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>  Request 
+                  Feature
+                </NavLink>
+              </li>
+
+              <li className ="nav-link">
+                <a className="" href='https://ko-fi.com/A0A13NGKV' target='_blank'>                  
+                  <i className="fa fa-handshake-o" aria-hidden="true"></i>  Support Development
+                </a>              
+              </li>
+              
               <li className="nav-item">
                 <NavLink className="nav-link" to="/users/me">
                   <i className="fa fa-user-circle" aria-hidden="true"></i> My

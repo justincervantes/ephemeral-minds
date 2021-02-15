@@ -14,6 +14,7 @@ import JournalEntryForm from "./components/journalEntryForm";
 import WeightPage from "./components/weightPage";
 import JournalPage from "./components/journalPage";
 import NotFoundPage from "./components/notFoundPage";
+import RequestFeature from "./components/requestFeature"
 import { getImageUrl } from "./services/userService";
 
 class App extends Component {
@@ -64,6 +65,12 @@ class App extends Component {
               path="/posts/:postid"
               render={(props) => (
                 <JournalEntryForm user={this.state.user} {...props} />
+              )}
+            />
+                        <Route
+              path="/request-feature"
+              render={(props) => (
+                <RequestFeature user={this.state.user} {...props} />
               )}
             />
             <Route path="/weight" component={WeightPage} />
