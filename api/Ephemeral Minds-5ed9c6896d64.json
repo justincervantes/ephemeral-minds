@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ephemeral-minds",
+  "private_key_id": "5ed9c6896d647240a59f0fc4ffdc5353637f34b8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDRC15sINc/aqec\nORT4YZscFDKvf/cyFVQHNzQGE1KzJ0jXkcbURr6edEN+i9yZ2JAYxto8RHoz5DPf\nLWDFIXN1UFPEUVphjQRLddWjKgpbGyq+r3sNPEGbIzZ/p7sEQbBmktIOhYLEKfku\nW8KpGVot9xvooJCRYCHbsdZMxeCciQUC6RpdQ0FvojQKZwleh3jyIwSPBBvbhyDw\nr1XJrZmu/dzfcJ34mpLvF4UYYTJL72D92AryFywb7rzRuaWLQ47Qzut/2HmkdrnY\nYnKsrCjs/fJ6ZNYk1yiqLr2FF3H9KOwhu3OQl20GxLa1mOkGweRYAaKmnCzfI6cV\ncg0RkQ3fAgMBAAECggEANXe1cm2h8Hf8n+IfwXnhnPhzkFzoIpi+8cuGVGl71RPe\ntzhzhRcFKW0uWD84sObp0FSIPDL9mKktNU+beUBZki92BXgTaHEToKNmfcHCfVQB\nBl3G2PdJBn+msFb76BZPIqU58fnnHPppYBibPPodjTUvn7v1ziEq99DQMbnI/fA9\nJbG0qXOaDrHQt7kHzlDRR+//zap2Wodns0bCo0VHFk0XjgrJ3KplD97ymDugwPhZ\nD8vY8pAeEeivO5mulMD0f6DtMa0EkH4FZKjWB3fgUNqtWixwmDtVebMLcgtab5LI\nwCJlBGr4Z3hMSaqH+3+uxLFH9fFX5NGnvIRg+EfDbQKBgQD7gK1Kn0YymdWY0YIW\n05vfmRk2b0wa7MBI6EvPXGwUHCg/zjCTQEM5dZmllQvJnvJ0qJ2E2Sly5A3GGlcR\ncHrf497KTh8NQICZlySo7Zo5dNJxGF9Vyd1AqAIa6JsRHJVLPry99PPPxKuT2MQM\nMqJxPB06MeSFWAwTtYt2hvfu7QKBgQDUyFPcGE3e3kriv7qJQDzI0zwCQMOCzMTu\nbTlWReqEr8PM/UyofXaIJmNQtyA3UIVfPRehe1V9A9HTq4Mi1PGUD3weAifmEkrI\nDiMazIDeRPhVMfKkzrW8WEVfubJtT1esLJEFsrsZFgMOaek7wpKVIyVP/n2jS3nz\nW4/J7gwKewKBgQC0SvFvbjB/c8IodABi5r12FCV73Vtcbd4GJei6tRGRdQHxg5lU\n5huK5GAJ0IgLuFMtB/cr1hWdlBi/rABAszaSq6L5ufkOoe/OqwgPxYzqpXF6u7MU\nJ8rhX89qhNcs9CWeNFJPhnsFtYIeUaVw7ReAP0zgfAXLBWxa8KkShfzUnQKBgAzo\num2368GBqvlmuGJrS0TDy/g3BaWB1tDAP6JES54RK8fb9jKiqfZIne3frkyszeqh\nQjXBzcXv3WMCHMqYMK/S4KzRZKpIodDRSr/teEQD2y0QArCM+embUVolYfXPwnnn\nmkTGOyOiejz9n/DINSxnHXRk9CpcAeIJxAd0MbbRAoGAK/OBh8HBuXgD0ltOciNb\nU0GUycBoAWwzXXNCwhT/fVevKU47BGrL6pwLpOEFFMU3bEf/LB7/OS6x9HaRtPDa\nKT/CzjRbCo4/hPUX04UERhvDwJcVREj0pffWOgBH7nZKKhgg6/Ew+/ROrz0Rq6q3\nchAqzfU7r3620nDvh+gtlTw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "owner-859@ephemeral-minds.iam.gserviceaccount.com",
+  "client_id": "117860266616772296393",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/owner-859%40ephemeral-minds.iam.gserviceaccount.com"
+}
