@@ -1,6 +1,3 @@
 {
-  "db": "mongodb+srv://admin:arete@cluster0.fzrfd.mongodb.net/ephemeralminds?retryWrites=true&w=majority",
-  "jwtPrivateKey": "arete",
-  "port": "5050",
-  "requiresAuth": true
+  "redacted": true
 }
